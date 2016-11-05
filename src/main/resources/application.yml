@@ -1,0 +1,46 @@
+# Server settings (ServerProperties)
+server:
+  port: 8082
+  address: 127.0.0.1
+  sessionTimeout: 30
+  contextPath: /demo
+
+  # Tomcat specifics
+  tomcat:
+    accessLogEnabled: false
+    protocolHeader: x-forwarded-proto
+    remoteIpHeader: x-forwarded-for
+    basedir:
+    backgroundProcessorDelay: 30 # secs
+    
+    
+    
+--- 
+spring:
+  profiles : test
+  datasource:
+    name: mydb  
+    type: com.alibaba.druid.pool.DruidDataSource  
+    url: jdbc:mysql://127.0.0.1:3306/mytestdb  
+    username: root  
+    password: 123456  
+    driver-class-name: com.mysql.jdbc.Driver  
+    minIdle: 1  
+    maxActive: 2  
+    initialSize: 1  
+    timeBetweenEvictionRunsMillis: 3000  
+    minEvictableIdleTimeMillis: 300000  
+    validationQuery: SELECT 'ZTM' FROM DUAL  
+    testWhileIdle: true  
+    testOnBorrow: false  
+    testOnReturn: false  
+    
+    
+--- 
+spring:
+  profiles : dev  
+
+--- 
+mybatis:   
+  mapperLocations: classpath*:com/dawnpro/demo/dao/*.xml  
+  typeAliasesPackage: com.dawnpro.demo.entity
